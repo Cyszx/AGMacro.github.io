@@ -41,7 +41,7 @@ jobs:
       - name: Copy logo
         run: |
           # Make sure your logo.png is in the root directory of your repository
-          cp imag23e.png ./imag23e.png
+          cp https://github.com/Cyszx/AGMacro.github.io/blob/main/imag23e.png ./imag23e.png
       - name: Create download button
         run: |
           echo '<!DOCTYPE html>
