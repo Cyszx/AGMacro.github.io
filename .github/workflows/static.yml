@@ -38,10 +38,9 @@ jobs:
           sudo apt-get install -y zip
       - name: Create zip file
         run: zip -r download.zip *
-      - name: Copy logo
+      - name: Download logo
         run: |
-          # Make sure your logo.png is in the root directory of your repository
-          cp https://github.com/Cyszx/AGMacro.github.io/blob/main/imag23e.png ./imag23e.png
+          curl -L https://raw.githubusercontent.com/Cyszx/AGMacro.github.io/main/imag23e.png -o imag23e.png
       - name: Create download button
         run: |
           echo '<!DOCTYPE html>
