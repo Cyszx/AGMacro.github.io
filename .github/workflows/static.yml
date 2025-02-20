@@ -38,6 +38,10 @@ jobs:
           sudo apt-get install -y zip
       - name: Create zip file
         run: zip -r download.zip *
+      - name: Copy logo
+        run: |
+          # Make sure your logo.png is in the root directory of your repository
+          cp imag23e.png ./imag23e.png
       - name: Create download button
         run: |
           echo '<!DOCTYPE html>
@@ -89,12 +93,18 @@ jobs:
                 backdrop-filter: blur(10px);
                 text-align: center;
               }
+              .logo {
+                width: 200px;
+                height: auto;
+                margin-bottom: 20px;
+              }
             </style>
           </head>
           <body>
             <div class="container">
+              <img src="imag23e.png" alt="CYS Macros Logo" class="logo">
               <h1>CYS Macros</h1>
-              <a href="download.zip" class="download-button" download>Download Now</a>
+              <a href="download.zip" class="download-button" download>Download Anime Guardians</a>
             </div>
           </body>
           </html>' > index.html
