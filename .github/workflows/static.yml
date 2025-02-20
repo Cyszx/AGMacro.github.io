@@ -40,28 +40,64 @@ jobs:
         run: zip -r download.zip *
       - name: Create download button
         run: |
-          echo '<style>
-            .download-button {
-              display: inline-block;
-              padding: 15px 30px;
-              font-size: 18px;
-              font-weight: bold;
-              color: white;
-              background-color: #4CAF50;
-              border: none;
-              border-radius: 5px;
-              text-decoration: none;
-              cursor: pointer;
-              transition: background-color 0.3s ease;
-            }
-            .download-button:hover {
-              background-color: #45a049;
-              transform: scale(1.05);
-            }
-          </style>
-          <div style="text-align: center; margin: 20px;">
-            <a href="download.zip" class="download-button" download>Download Now</a>
-          </div>' >> index.html
+          echo '<!DOCTYPE html>
+          <html>
+          <head>
+            <title>CYS Macros</title>
+            <style>
+              body {
+                background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+              }
+              h1 {
+                color: white;
+                text-align: center;
+                font-size: 36px;
+                margin-bottom: 30px;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+              }
+              .download-button {
+                display: inline-block;
+                padding: 15px 30px;
+                font-size: 18px;
+                font-weight: bold;
+                color: white;
+                background-color: #4CAF50;
+                border: none;
+                border-radius: 5px;
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+              }
+              .download-button:hover {
+                background-color: #45a049;
+                transform: scale(1.05);
+                box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+              }
+              .container {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 40px;
+                border-radius: 15px;
+                backdrop-filter: blur(10px);
+                text-align: center;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>CYS Macros</h1>
+              <a href="download.zip" class="download-button" download>Download Now</a>
+            </div>
+          </body>
+          </html>' > index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
