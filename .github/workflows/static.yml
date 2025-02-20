@@ -43,8 +43,8 @@ jobs:
             <title>CYS Macros</title>
             <style>
               body {
-                background: black;
-                font-family: Arial, sans-serif;
+                background: linear-gradient(135deg, #1a1a1a, #000000);
+                font-family: "Segoe UI", Arial, sans-serif;
                 margin: 0;
                 padding: 20px;
                 min-height: 100vh;
@@ -54,49 +54,63 @@ jobs:
                 justify-content: center;
               }
               h1, h2 {
-                color: white;
+                color: #ffffff;
                 text-align: center;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
               }
               h1 {
-                font-size: 42px;
-                margin-bottom: 10px;
+                font-size: 48px;
+                margin-bottom: 15px;
+                letter-spacing: 2px;
+                font-weight: 700;
               }
               h2 {
-                font-size: 32px;
-                margin-bottom: 30px;
+                font-size: 36px;
+                margin-bottom: 35px;
+                color: #cccccc;
               }
               .download-button {
                 display: inline-block;
-                padding: 15px 30px;
-                font-size: 18px;
+                padding: 18px 36px;
+                font-size: 20px;
                 font-weight: bold;
                 color: white;
-                background-color: #4CAF50;
+                background: linear-gradient(45deg, #4CAF50, #45a049);
                 border: none;
-                border-radius: 5px;
+                border-radius: 8px;
                 text-decoration: none;
                 cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                transition: all 0.4s ease;
+                box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
               }
               .download-button:hover {
-                background-color: #45a049;
-                transform: scale(1.05);
-                box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+                background: linear-gradient(45deg, #45a049, #4CAF50);
+                transform: translateY(-2px) scale(1.05);
+                box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
               }
               .container {
                 background: rgba(255, 255, 255, 0.1);
-                padding: 40px;
-                border-radius: 15px;
-                backdrop-filter: blur(10px);
+                padding: 50px;
+                border-radius: 20px;
+                backdrop-filter: blur(12px);
                 text-align: center;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                animation: fadeIn 1s ease-out;
+              }
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+              .download-button::before {
+                content: "⬇";
+                margin-right: 10px;
               }
             </style>
           </head>
           <body>
             <div class="container">
-              <h1>Cys Macro</h1>
+              <h1>CYS Macro</h1>
               <a href="Anime Guardians V0.2.0.2.zip" class="download-button" download>Download Anime Guardians</a>
             </div>
           </body>
