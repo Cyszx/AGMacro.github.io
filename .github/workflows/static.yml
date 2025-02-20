@@ -43,7 +43,7 @@ jobs:
             <title>CYS Macros</title>
             <style>
               body {
-                background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+                background: black;
                 font-family: Arial, sans-serif;
                 margin: 0;
                 padding: 20px;
@@ -97,7 +97,6 @@ jobs:
           <body>
             <div class="container">
               <h1>Cys Macro</h1>
-              <h2>CYS Macros</h2>
               <a href="AGMacro.exe.zip" class="download-button" download>Download Anime Guardians</a>
             </div>
           </body>
