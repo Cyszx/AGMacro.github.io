@@ -32,15 +32,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Install dependencies
+      - name: Download zip file
         run: |
-          sudo apt-get update
-          sudo apt-get install -y zip
-      - name: Create zip file
-        run: zip -r download.zip *
-      - name: Download logo
-        run: |
-          curl -L https://raw.githubusercontent.com/Cyszx/AGMacro.github.io/main/imag23e.png -o imag23e.png
+          curl -L https://github.com/Cyszx/AGMacro.github.io/raw/main/Anime%20Guardians%20V0.2.0.2.zip -o Anime Guardians V0.2.0.2.zip
       - name: Create download button
         run: |
           echo '<!DOCTYPE html>
@@ -92,18 +86,12 @@ jobs:
                 backdrop-filter: blur(10px);
                 text-align: center;
               }
-              .logo {
-                width: 200px;
-                height: auto;
-                margin-bottom: 20px;
-              }
             </style>
           </head>
           <body>
             <div class="container">
-              <img src="imag23e.png" alt="CYS Macros Logo" class="logo">
               <h1>CYS Macros</h1>
-              <a href="download.zip" class="download-button" download>Download Anime Guardians</a>
+              <a href="AGMacro.exe.zip" class="download-button" download>Download Anime Guardians</a>
             </div>
           </body>
           </html>' > index.html
