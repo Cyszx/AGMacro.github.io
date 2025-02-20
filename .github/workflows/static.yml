@@ -32,6 +32,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zip
+      - name: Create zip file
+        run: zip -r download.zip *
       - name: Create download button
         run: |
           echo '<style>
