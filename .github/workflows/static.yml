@@ -34,7 +34,28 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Create download button
         run: |
-          echo '<a href="download.zip" class="download-button" download>Download</a>' >> index.html
+          echo '<style>
+            .download-button {
+              display: inline-block;
+              padding: 15px 30px;
+              font-size: 18px;
+              font-weight: bold;
+              color: white;
+              background-color: #4CAF50;
+              border: none;
+              border-radius: 5px;
+              text-decoration: none;
+              cursor: pointer;
+              transition: background-color 0.3s ease;
+            }
+            .download-button:hover {
+              background-color: #45a049;
+              transform: scale(1.05);
+            }
+          </style>
+          <div style="text-align: center; margin: 20px;">
+            <a href="download.zip" class="download-button" download>Download Now</a>
+          </div>' >> index.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
