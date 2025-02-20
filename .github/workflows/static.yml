@@ -40,7 +40,7 @@ jobs:
           echo '<!DOCTYPE html>
           <html>
           <head>
-            <title>CYS Macros</title>
+            <title>Cys Macros</title>
             <style>
               body {
                 background: linear-gradient(135deg, #1a1a1a, #000000);
@@ -110,7 +110,7 @@ jobs:
           </head>
           <body>
             <div class="container">
-              <h1>CYS Macro</h1>
+              <h1>Cys Macro</h1>
               <a href="Anime Guardians V0.2.0.2.zip" class="download-button" download>Download Anime Guardians</a>
             </div>
           </body>
