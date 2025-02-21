@@ -34,7 +34,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Download zip file
         run: |
-          curl -L https://github.com/Cyszx/AGMacro.github.io/raw/main/Anime%20Guardians%20V0.2.0.2.zip -o "Anime Guardians V0.2.0.2.zip"
+          curl -L https://github.com/Cyszx/AGMacro.github.io/blob/main/Anime%20Guardians%20V0.2.0.3.zip -o "Anime Guardians V0.2.0.3.zip"
       - name: Create download button
         run: |
           echo '<!DOCTYPE html>
@@ -111,7 +111,7 @@ jobs:
           <body>
             <div class="container">
               <h1>Cys Macro</h1>
-              <a href="Anime Guardians V0.2.0.2.zip" class="download-button" download>Download Anime Guardians V0.2.0.2</a>
+              <a href="Anime Guardians V0.2.0.3.zip" class="download-button" download>Download Anime Guardians V0.2.0.2</a>
             </div>
           </body>
           </html>' > index.html
