@@ -48,7 +48,7 @@ jobs:
                 box-sizing: border-box;
               }
               body {
-                background: linear-gradient(135deg, #1a1a1a, #000000);
+                background: linear-gradient(135deg, #0a0a2e, #1a1a3a);
                 font-family: "Segoe UI", Arial, sans-serif;
                 margin: 0;
                 padding: 20px;
@@ -61,6 +61,27 @@ jobs:
                 position: relative;
                 overflow: hidden;
               }
+              .particles {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 0;
+              }
+              .particle {
+                position: absolute;
+                width: 3px;
+                height: 3px;
+                background: rgba(76, 175, 80, 0.5);
+                border-radius: 50%;
+                animation: float 15s infinite linear;
+              }
+              @keyframes float {
+                0% { transform: translateY(0) translateX(0); opacity: 1; }
+                100% { transform: translateY(-100vh) translateX(100vw); opacity: 0; }
+              }
               body::before {
                 content: "";
                 position: absolute;
@@ -69,11 +90,11 @@ jobs:
                 width: 100%;
                 height: 100%;
                 background: 
-                  radial-gradient(circle at 50% 50%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
-                  linear-gradient(45deg, rgba(76, 175, 80, 0.05) 25%, transparent 25%) 0 0,
-                  linear-gradient(45deg, rgba(76, 175, 80, 0.05) 25%, transparent 25%) 20px 20px,
-                  linear-gradient(-45deg, rgba(76, 175, 80, 0.05) 25%, transparent 25%) 0 0,
-                  linear-gradient(-45deg, rgba(76, 175, 80, 0.05) 25%, transparent 25%) 20px 20px;
+                  radial-gradient(circle at 50% 50%, rgba(76, 175, 80, 0.15) 0%, transparent 60%),
+                  linear-gradient(45deg, rgba(76, 175, 80, 0.1) 25%, transparent 25%) 0 0,
+                  linear-gradient(45deg, rgba(76, 175, 80, 0.1) 25%, transparent 25%) 20px 20px,
+                  linear-gradient(-45deg, rgba(76, 175, 80, 0.1) 25%, transparent 25%) 0 0,
+                  linear-gradient(-45deg, rgba(76, 175, 80, 0.1) 25%, transparent 25%) 20px 20px;
                 background-size: 100% 100%, 40px 40px, 40px 40px, 40px 40px, 40px 40px;
                 animation: pulse 4s ease-in-out infinite;
               }
@@ -85,10 +106,10 @@ jobs:
                 width: 100%;
                 height: 100%;
                 background: 
-                  radial-gradient(circle at 30% 20%, rgba(76, 175, 80, 0.05) 0%, transparent 25%),
-                  radial-gradient(circle at 70% 80%, rgba(76, 175, 80, 0.05) 0%, transparent 25%),
-                  radial-gradient(circle at 90% 10%, rgba(76, 175, 80, 0.05) 0%, transparent 25%),
-                  radial-gradient(circle at 10% 90%, rgba(76, 175, 80, 0.05) 0%, transparent 25%);
+                  radial-gradient(circle at 30% 20%, rgba(76, 175, 80, 0.1) 0%, transparent 35%),
+                  radial-gradient(circle at 70% 80%, rgba(76, 175, 80, 0.1) 0%, transparent 35%),
+                  radial-gradient(circle at 90% 10%, rgba(76, 175, 80, 0.1) 0%, transparent 35%),
+                  radial-gradient(circle at 10% 90%, rgba(76, 175, 80, 0.1) 0%, transparent 35%);
                 pointer-events: none;
               }
               h1, h2 {
@@ -96,6 +117,7 @@ jobs:
                 text-align: center;
                 text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
                 position: relative;
+                z-index: 1;
               }
               h1 {
                 font-size: 48px;
@@ -105,6 +127,11 @@ jobs:
                 background: linear-gradient(45deg, #ffffff, #4CAF50);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
+                animation: glow 2s ease-in-out infinite alternate;
+              }
+              @keyframes glow {
+                from { text-shadow: 0 0 5px #4CAF50, 0 0 10px #4CAF50, 0 0 15px #4CAF50; }
+                to { text-shadow: 0 0 10px #4CAF50, 0 0 20px #4CAF50, 0 0 30px #4CAF50; }
               }
               h2 {
                 font-size: 36px;
@@ -127,11 +154,12 @@ jobs:
                 box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
                 position: relative;
                 overflow: hidden;
+                z-index: 1;
               }
               .download-button:hover {
                 background: linear-gradient(45deg, #45a049, #4CAF50);
                 transform: translateY(-2px) scale(1.05);
-                box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
+                box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4), 0 0 20px rgba(76, 175, 80, 0.3);
               }
               .download-button:active {
                 transform: translateY(1px);
@@ -143,7 +171,7 @@ jobs:
                 left: -50%;
                 width: 200%;
                 height: 200%;
-                background: rgba(255, 255, 255, 0.1);
+                background: rgba(255, 255, 255, 0.2);
                 transform: rotate(45deg);
                 transition: all 0.3s ease;
               }
@@ -160,6 +188,7 @@ jobs:
                 border: 1px solid rgba(255, 255, 255, 0.1);
                 animation: fadeIn 1s ease-out;
                 position: relative;
+                z-index: 1;
               }
               .container::before {
                 content: "";
@@ -199,6 +228,17 @@ jobs:
             </style>
           </head>
           <body>
+            <div class="particles">
+              <script>
+                for(let i = 0; i < 50; i++) {
+                  const particle = document.createElement("div");
+                  particle.className = "particle";
+                  particle.style.left = Math.random() * 100 + "vw";
+                  particle.style.animationDelay = Math.random() * 15 + "s";
+                  document.querySelector(".particles").appendChild(particle);
+                }
+              </script>
+            </div>
             <div class="container">
               <h1>Cys Macro</h1>
               <a href="Anime Guardians V0.2.0.3.zip" class="download-button" download>Download Anime Guardians V0.2.0.3</a>
