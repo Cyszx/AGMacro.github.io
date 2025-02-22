@@ -34,7 +34,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Download zip file
         run: |
-          curl -L -o "Anime Guardians V0.2.0.5.zip" https://github.com/Cyszx/AGMacro.github.io/raw/main/Anime%20Guardians%20V0.2.0.5.zip
+          curl -L -o "Anime Guardians V0.2.0.6.zip" https://github.com/Cyszx/AGMacro.github.io/raw/main/Anime%20Guardians%20V0.2.0.6.zip
       - name: Create download button
         run: |
           echo '<!DOCTYPE html>
@@ -267,8 +267,8 @@ jobs:
               <div class="description">
                 Enhance your gaming experience with our powerful macro tool designed specifically for Anime Guardians.
               </div>
-              <a href="Anime Guardians V0.2.0.5.zip" class="download-button" download>Download Anime Guardians</a>
-              <div class="version-tag">Version 0.2.0.5</div>
+              <a href="Anime Guardians V0.2.0.6.zip" class="download-button" download>Download Anime Guardians</a>
+              <div class="version-tag">Version 0.2.0.6</div>
             </div>
           </body>
           </html>' > index.html
