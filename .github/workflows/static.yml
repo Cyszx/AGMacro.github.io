@@ -16,7 +16,6 @@ permissions:
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-# https://github.com/Cyszx/AGMacro.github.io/raw/main/Anime%20Guardians%20V0.2.0.6.zip
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -35,7 +34,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Download zip file
         run: |
-          curl -L -o "Anime Guardians V0.2.0.6.zip"
+          curl -L -o "Anime Guardians V0.2.0.6.zip" "https://github.com/Cyszx/AGMacro.github.io/raw/main/Anime%20Guardians%20V0.2.0.6.zip"
       - name: Create download button
         run: |
           cat > index.html << 'EOF'
