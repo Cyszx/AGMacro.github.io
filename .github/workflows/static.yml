@@ -16,6 +16,7 @@ permissions:
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# https://github.com/Cyszx/AGMacro.github.io/raw/main/Anime%20Guardians%20V0.2.0.6.zip
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -34,126 +35,126 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Download zip file
         run: |
-          curl -L -o "Anime Guardians V0.2.0.6.zip" https://github.com/Cyszx/AGMacro.github.io/raw/main/Anime%20Guardians%20V0.2.0.6.zip
-      name: Create download button
-      run: |
-        cat > index.html << 'EOF'
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <meta name="description" content="Download Cys Macro for Anime Guardians - Enhance your gaming experience">
-          <title>Cys Macros - Download Anime Guardians Macro</title>
-          <link rel="preconnect" href="https://fonts.googleapis.com">
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-          <style>
-            * {
-              margin: 0;
-              padding: 0;
-              box-sizing: border-box;
-            }
-            :root {
-              --primary-color: #4CAF50;
-              --secondary-color: #45a049;
-              --text-color: #ffffff;
-              --background-start: #0a0a2e;
-              --background-end: #1a1a3a;
-            }
-            body {
-              background: linear-gradient(135deg, var(--background-start), var(--background-end));
-              font-family: "Poppins", "Segoe UI", Arial, sans-serif;
-              padding: 20px;
-              min-height: 100vh;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              justify-content: center;
-              color: var(--text-color);
-              position: relative;
-              overflow: hidden;
-            }
-            .container {
-              background: rgba(255, 255, 255, 0.1);
-              padding: 40px;
-              border-radius: 20px;
-              backdrop-filter: blur(12px);
-              text-align: center;
-              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-              max-width: 600px;
-              width: 90%;
-            }
-            h1 {
-              font-size: clamp(32px, 5vw, 48px);
-              margin-bottom: 15px;
-              letter-spacing: 2px;
-              font-weight: 700;
-              background: linear-gradient(45deg, var(--text-color), var(--primary-color));
-              -webkit-background-clip: text;
-              -webkit-text-fill-color: transparent;
-              animation: glow 2s ease-in-out infinite alternate;
-            }
-            .download-button {
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
-              padding: 18px 36px;
-              font-size: clamp(16px, 3vw, 20px);
-              font-weight: bold;
-              color: var(--text-color);
-              background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-              border: none;
-              border-radius: 12px;
-              text-decoration: none;
-              cursor: pointer;
-              transition: all 0.3s ease;
-              box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
-            }
-            .download-button:hover {
-              transform: translateY(-2px) scale(1.05);
-              box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
-            }
-            .version-tag {
-              background: rgba(76, 175, 80, 0.2);
-              padding: 5px 10px;
-              border-radius: 15px;
-              font-size: 14px;
-              margin-top: 15px;
-              display: inline-block;
-              border: 1px solid rgba(76, 175, 80, 0.3);
-            }
-            .description {
-              margin: 20px 0;
-              font-size: clamp(14px, 2vw, 16px);
-              line-height: 1.6;
-              color: #cccccc;
-            }
-            @media (max-width: 480px) {
+          curl -L -o "Anime Guardians V0.2.0.6.zip"
+      - name: Create download button
+        run: |
+          cat > index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="Download Cys Macro for Anime Guardians - Enhance your gaming experience">
+            <title>Cys Macros - Download Anime Guardians Macro</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+            <style>
+              * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+              }
+              :root {
+                --primary-color: #4CAF50;
+                --secondary-color: #45a049;
+                --text-color: #ffffff;
+                --background-start: #0a0a2e;
+                --background-end: #1a1a3a;
+              }
+              body {
+                background: linear-gradient(135deg, var(--background-start), var(--background-end));
+                font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+                padding: 20px;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: var(--text-color);
+                position: relative;
+                overflow: hidden;
+              }
               .container {
-                padding: 30px;
+                background: rgba(255, 255, 255, 0.1);
+                padding: 40px;
+                border-radius: 20px;
+                backdrop-filter: blur(12px);
+                text-align: center;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                max-width: 600px;
+                width: 90%;
+              }
+              h1 {
+                font-size: clamp(32px, 5vw, 48px);
+                margin-bottom: 15px;
+                letter-spacing: 2px;
+                font-weight: 700;
+                background: linear-gradient(45deg, var(--text-color), var(--primary-color));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: glow 2s ease-in-out infinite alternate;
               }
               .download-button {
-                padding: 15px 30px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 18px 36px;
+                font-size: clamp(16px, 3vw, 20px);
+                font-weight: bold;
+                color: var(--text-color);
+                background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+                border: none;
+                border-radius: 12px;
+                text-decoration: none;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
               }
-            }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <h1>Cys Macro</h1>
-            <div class="description">
-              Enhance your gaming experience with our powerful macro tool designed specifically for Anime Guardians.
-              Features improved automation and customizable settings for optimal gameplay.
+              .download-button:hover {
+                transform: translateY(-2px) scale(1.05);
+                box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
+              }
+              .version-tag {
+                background: rgba(76, 175, 80, 0.2);
+                padding: 5px 10px;
+                border-radius: 15px;
+                font-size: 14px;
+                margin-top: 15px;
+                display: inline-block;
+                border: 1px solid rgba(76, 175, 80, 0.3);
+              }
+              .description {
+                margin: 20px 0;
+                font-size: clamp(14px, 2vw, 16px);
+                line-height: 1.6;
+                color: #cccccc;
+              }
+              @media (max-width: 480px) {
+                .container {
+                  padding: 30px;
+                }
+                .download-button {
+                  padding: 15px 30px;
+                }
+              }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>Cys Macro</h1>
+              <div class="description">
+                Enhance your gaming experience with our powerful macro tool designed specifically for Anime Guardians.
+                Features improved automation and customizable settings for optimal gameplay.
+              </div>
+              <a href="Anime Guardians V0.2.0.6.zip" class="download-button" download>
+                <span>⬇ Download Anime Guardians</span>
+              </a>
+              <div class="version-tag">Version 0.2.0.6</div>
             </div>
-            <a href="Anime Guardians V0.2.0.6.zip" class="download-button" download>
-              <span>⬇ Download Anime Guardians</span>
-            </a>
-            <div class="version-tag">Version 0.2.0.6</div>
-          </div>
-        </body>
-        </html>
-        EOF
+          </body>
+          </html>
+          EOF
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
