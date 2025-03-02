@@ -30,17 +30,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Download zip file
         run: |
           curl -L -o "Anime Guardians V0.2.0.6.zip" https://github.com/Cyszx/AGMacro.github.io/raw/main/Anime%20Guardians%20V0.2.0.6.zip
+
       - name: Create download button
         run: |
           echo '<!DOCTYPE html>
-          <html>
+          <html lang="en">
           <head>
-            <title>Cys Macros</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="Download Cys Macro for Anime Guardians - Enhance your gaming experience">
+            <title>Cys Macros - Download Anime Guardians Macro</title>
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
@@ -50,233 +56,62 @@ jobs:
                 padding: 0;
                 box-sizing: border-box;
               }
+              :root {
+                --primary-color: #4CAF50;
+                --secondary-color: #45a049;
+                --text-color: #ffffff;
+                --background-start: #0a0a2e;
+                --background-end: #1a1a3a;
+              }
               body {
-                background: linear-gradient(135deg, #0a0a2e, #1a1a3a);
+                background: linear-gradient(135deg, var(--background-start), var(--background-end));
                 font-family: "Poppins", "Segoe UI", Arial, sans-serif;
-                margin: 0;
                 padding: 20px;
                 min-height: 100vh;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                color: #ffffff;
+                color: var(--text-color);
                 position: relative;
                 overflow: hidden;
               }
-              .particles {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                z-index: 0;
-              }
-              .particle {
-                position: absolute;
-                width: 3px;
-                height: 3px;
-                background: rgba(76, 175, 80, 0.5);
-                border-radius: 50%;
-                animation: float 15s infinite linear;
-              }
-              @keyframes float {
-                0% { transform: translateY(0) translateX(0); opacity: 1; }
-                100% { transform: translateY(-100vh) translateX(100vw); opacity: 0; }
-              }
-              body::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: 
-                  radial-gradient(circle at 50% 50%, rgba(76, 175, 80, 0.15) 0%, transparent 60%),
-                  linear-gradient(45deg, rgba(76, 175, 80, 0.1) 25%, transparent 25%) 0 0,
-                  linear-gradient(45deg, rgba(76, 175, 80, 0.1) 25%, transparent 25%) 20px 20px,
-                  linear-gradient(-45deg, rgba(76, 175, 80, 0.1) 25%, transparent 25%) 0 0,
-                  linear-gradient(-45deg, rgba(76, 175, 80, 0.1) 25%, transparent 25%) 20px 20px;
-                background-size: 100% 100%, 40px 40px, 40px 40px, 40px 40px, 40px 40px;
-                animation: pulse 4s ease-in-out infinite;
-              }
-              body::after {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: 
-                  radial-gradient(circle at 30% 20%, rgba(76, 175, 80, 0.1) 0%, transparent 35%),
-                  radial-gradient(circle at 70% 80%, rgba(76, 175, 80, 0.1) 0%, transparent 35%),
-                  radial-gradient(circle at 90% 10%, rgba(76, 175, 80, 0.1) 0%, transparent 35%),
-                  radial-gradient(circle at 10% 90%, rgba(76, 175, 80, 0.1) 0%, transparent 35%);
-                pointer-events: none;
-              }
-              h1, h2 {
-                color: #ffffff;
+              .container {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 40px;
+                border-radius: 20px;
+                backdrop-filter: blur(12px);
                 text-align: center;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-                position: relative;
-                z-index: 1;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                max-width: 600px;
+                width: 90%;
               }
               h1 {
-                font-size: 48px;
+                font-size: clamp(32px, 5vw, 48px);
                 margin-bottom: 15px;
                 letter-spacing: 2px;
                 font-weight: 700;
-                background: linear-gradient(45deg, #ffffff, #4CAF50);
+                background: linear-gradient(45deg, var(--text-color), var(--primary-color));
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 animation: glow 2s ease-in-out infinite alternate;
-              }
-              @keyframes glow {
-                from { text-shadow: 0 0 5px #4CAF50, 0 0 10px #4CAF50, 0 0 15px #4CAF50; }
-                to { text-shadow: 0 0 10px #4CAF50, 0 0 20px #4CAF50, 0 0 30px #4CAF50; }
-              }
-              h2 {
-                font-size: 36px;
-                margin-bottom: 35px;
-                color: #cccccc;
-                opacity: 0.9;
               }
               .download-button {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
                 padding: 18px 36px;
-                font-size: 20px;
+                font-size: clamp(16px, 3vw, 20px);
                 font-weight: bold;
-                color: white;
-                background: linear-gradient(45deg, #4CAF50, #45a049);
+                color: var(--text-color);
+                background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
                 border: none;
                 border-radius: 12px;
                 text-decoration: none;
                 cursor: pointer;
-                transition: all 0.4s ease;
+                transition: all 0.3s ease;
                 box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
-                position: relative;
-                overflow: hidden;
-                z-index: 1;
               }
               .download-button:hover {
-                background: linear-gradient(45deg, #45a049, #4CAF50);
                 transform: translateY(-2px) scale(1.05);
-                box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4), 0 0 20px rgba(76, 175, 80, 0.3);
-              }
-              .download-button:active {
-                transform: translateY(1px);
-              }
-              .download-button::after {
-                content: "";
-                position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-                background: rgba(255, 255, 255, 0.2);
-                transform: rotate(45deg);
-                transition: all 0.3s ease;
-              }
-              .download-button:hover::after {
-                transform: rotate(45deg) translate(50%, 50%);
-              }
-              .container {
-                background: rgba(255, 255, 255, 0.1);
-                padding: 50px;
-                border-radius: 20px;
-                backdrop-filter: blur(12px);
-                text-align: center;
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                animation: fadeIn 1s ease-out;
-                position: relative;
-                z-index: 1;
-                max-width: 600px;
-                width: 90%;
-              }
-              .container::before {
-                content: "";
-                position: absolute;
-                top: -2px;
-                left: -2px;
-                right: -2px;
-                bottom: -2px;
-                background: linear-gradient(45deg, #4CAF50, transparent, #4CAF50);
-                border-radius: 22px;
-                z-index: -1;
-                animation: borderGlow 3s linear infinite;
-              }
-              @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
-              }
-              @keyframes pulse {
-                0% { transform: scale(1); opacity: 0.5; }
-                50% { transform: scale(1.2); opacity: 0.2; }
-                100% { transform: scale(1); opacity: 0.5; }
-              }
-              @keyframes borderGlow {
-                0% { opacity: 0.5; }
-                50% { opacity: 1; }
-                100% { opacity: 0.5; }
-              }
-              .download-button::before {
-                content: "⬇";
-                margin-right: 10px;
-                animation: bounce 1s infinite;
-                font-size: 24px;
-              }
-              @keyframes bounce {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-5px); }
-              }
-              .version-tag {
-                background: rgba(76, 175, 80, 0.2);
-                padding: 5px 10px;
-                border-radius: 15px;
-                font-size: 14px;
-                margin-top: 15px;
-                display: inline-block;
-                border: 1px solid rgba(76, 175, 80, 0.3);
-              }
-              .description {
-                margin: 20px 0;
-                font-size: 16px;
-                line-height: 1.6;
-                color: #cccccc;
-              }
-            </style>
-          </head>
-          <body>
-            <div class="particles">
-              <script>
-                for(let i = 0; i < 50; i++) {
-                  const particle = document.createElement("div");
-                  particle.className = "particle";
-                  particle.style.left = Math.random() * 100 + "vw";
-                  particle.style.animationDelay = Math.random() * 15 + "s";
-                  document.querySelector(".particles").appendChild(particle);
-                }
-              </script>
-            </div>
-            <div class="container">
-              <h1>Cys Macro</h1>
-              <div class="description">
-                Enhance your gaming experience with our powerful macro tool designed specifically for Anime Guardians.
-              </div>
-              <a href="Anime Guardians V0.2.0.6.zip" class="download-button" download>Download Anime Guardians</a>
-              <div class="version-tag">Version 0.2.0.6</div>
-            </div>
-          </body>
-          </html>' > index.html
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+                box
