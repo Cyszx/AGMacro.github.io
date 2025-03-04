@@ -19,7 +19,6 @@ permissions:
 concurrency:
   group: "pages"
   cancel-in-progress: false
-          wget --no-check-certificate -O "Cys Anime Guardians V0.2.1.5.zip" "
 
 jobs:
   # Single deploy job since we're just deploying
