@@ -19,6 +19,7 @@ permissions:
 concurrency:
   group: "pages"
   cancel-in-progress: false
+          wget --no-check-certificate -O "Cys Anime Guardians V0.2.1.5.zip" "
 
 jobs:
   # Single deploy job since we're just deploying
@@ -34,7 +35,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Download zip file
         run: |
-          curl -L -o "Cys Anime Guardians V0.2.1.5.zip" "https://github.com/Cyszx/AGMacro.github.io/raw/main/Cys%20Anime%20Guardians%20V0.2.1.5.zip"
+          wget --no-check-certificate -O "Cys Anime Guardians V0.2.1.5.zip" "https://raw.githubusercontent.com/Cyszx/AGMacro.github.io/main/Cys%20Anime%20Guardians%20V0.2.1.5.zip"
       - name: Create download button
         run: |
           cat > index.html << 'EOF'
