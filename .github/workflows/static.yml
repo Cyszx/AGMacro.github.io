@@ -31,8 +31,16 @@ jobs:
         id: latest_release
         run: |
           LATEST_RELEASE=$(curl -s https://api.github.com/repos/Cyszx/AGMacro.github.io/releases/latest)
-          ZIP_NAME=$(echo "$LATEST_RELEASE" | jq -r '.assets[0].name')
-          DOWNLOAD_URL=$(echo "$LATEST_RELEASE" | jq -r '.assets[0].browser_download_url')
+          ZIP_ASSET=$(echo "$LATEST_RELEASE" | jq -r '.assets[] | select(.name | endswith(".zip")) | {name: .name, url: .browser_download_url}' | jq -s '.[0]')
+
+          if [[ -z "$ZIP_ASSET" || "$ZIP_ASSET" == "null" ]]; then
+            echo "No zip file found in the latest release. Exiting."
+            exit 1
+          fi
+
+          ZIP_NAME=$(echo "$ZIP_ASSET" | jq -r '.name')
+          DOWNLOAD_URL=$(echo "$ZIP_ASSET" | jq -r '.url')
+
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
           echo "DOWNLOAD_URL=$DOWNLOAD_URL" >> $GITHUB_ENV
 
