@@ -23,20 +23,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: Get Latest Release
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Fetch Latest Release Info
         id: latest_release
         run: |
-          LATEST_RELEASE=$(curl -s https://api.github.com/repos/Cyszx/AGMacro.github.io/releases/latest | jq -r '.assets[0].browser_download_url')
-          echo "LATEST_RELEASE=$LATEST_RELEASE" >> $GITHUB_ENV
-      
-      - name: Download latest release
+          LATEST_RELEASE=$(curl -s https://api.github.com/repos/Cyszx/AGMacro.github.io/releases/latest)
+          ZIP_NAME=$(echo "$LATEST_RELEASE" | jq -r '.assets[0].name')
+          DOWNLOAD_URL=$(echo "$LATEST_RELEASE" | jq -r '.assets[0].browser_download_url')
+          echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
+          echo "DOWNLOAD_URL=$DOWNLOAD_URL" >> $GITHUB_ENV
+
+      - name: Create Dynamic Download Page
         run: |
-          wget --no-check-certificate -O "latest_release.zip" "$LATEST_RELEASE"
-      
-      - name: Create download button
-        run: |
-          cat > index.html << 'EOF'
+          cat > index.html << EOF
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -44,31 +46,81 @@ jobs:
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="description" content="Download Cys Macro for Anime Guardians - Enhance your gaming experience">
             <title>Cys Macros - Download Anime Guardians Macro</title>
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
             <style>
               * { margin: 0; padding: 0; box-sizing: border-box; }
-              body { background: linear-gradient(135deg, #0a0a2e, #1a1a3a); font-family: "Poppins", Arial, sans-serif; padding: 20px; display: flex; justify-content: center; align-items: center; height: 100vh; color: white; }
-              .container { text-align: center; background: rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 10px; }
-              .download-button { display: inline-block; padding: 15px 30px; background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-size: 18px; }
+              body {
+                background: linear-gradient(135deg, #0a0a2e, #1a1a3a);
+                font-family: "Poppins", sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                color: white;
+              }
+              .container {
+                text-align: center;
+                padding: 40px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 20px;
+                backdrop-filter: blur(12px);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                width: 90%;
+                max-width: 600px;
+              }
+              h1 {
+                font-size: 2.5rem;
+                background: linear-gradient(45deg, white, #4CAF50);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+              }
+              .description {
+                font-size: 1rem;
+                margin: 20px 0;
+                color: #cccccc;
+              }
+              .download-button {
+                display: inline-block;
+                background: linear-gradient(45deg, #4CAF50, #45a049);
+                color: white;
+                padding: 18px 36px;
+                font-size: 1.2rem;
+                border-radius: 12px;
+                text-decoration: none;
+                font-weight: bold;
+                transition: 0.3s;
+                box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+              }
+              .download-button:hover {
+                transform: translateY(-3px) scale(1.05);
+                box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
+              }
+              .version-tag {
+                margin-top: 15px;
+                font-size: 0.9rem;
+                background: rgba(76, 175, 80, 0.2);
+                padding: 5px 10px;
+                border-radius: 10px;
+                border: 1px solid rgba(76, 175, 80, 0.3);
+              }
             </style>
           </head>
           <body>
             <div class="container">
               <h1>Cys Macro</h1>
-              <p>Enhance your gaming experience with our powerful macro tool for Anime Guardians.</p>
-              <a href="latest_release.zip" class="download-button" download>⬇ Download Latest Release</a>
+              <p class="description">Enhance your gaming experience with our powerful macro tool designed for Anime Guardians.</p>
+              <a href="${{ env.DOWNLOAD_URL }}" class="download-button" download>⬇ Download ${ZIP_NAME}</a>
+              <div class="version-tag">Version: ${ZIP_NAME}</div>
             </div>
           </body>
           </html>
           EOF
-      
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
-      
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
