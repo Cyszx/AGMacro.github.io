@@ -42,14 +42,16 @@ jobs:
           fi
 
           # Fetch Anime Royale Release
-          AR_RELEASE=$(curl -s https://api.github.com/repos/Cyszx/Anime-Royale-Macro/releases/latest || echo "{}")
-          AR_ZIP=$(echo "$AR_RELEASE" | jq -r '.assets[] | select(.name | endswith(".zip")) | {name: .name, url: .browser_download_url}' | jq -s '.[0]')
-          
-          if [[ ! -z "$AR_ZIP" && "$AR_ZIP" != "null" ]]; then
-            AR_NAME=$(echo "$AR_ZIP" | jq -r '.name')
-            AR_URL=$(echo "$AR_ZIP" | jq -r '.url')
-            echo "AR_ZIP_NAME=$AR_NAME" >> $GITHUB_ENV
-            echo "AR_DOWNLOAD_URL=$AR_URL" >> $GITHUB_ENV
+          AR_RELEASE=$(curl -s https://api.github.com/repos/Cyszx/Anime-Royale-Macro/releases/latest)
+          if [[ $(echo "$AR_RELEASE" | jq -r '.assets | length') -gt 0 ]]; then
+            AR_ZIP=$(echo "$AR_RELEASE" | jq -r '.assets[] | select(.name | endswith(".zip")) | {name: .name, url: .browser_download_url}' | jq -s '.[0]')
+            
+            if [[ ! -z "$AR_ZIP" && "$AR_ZIP" != "null" ]]; then
+              AR_NAME=$(echo "$AR_ZIP" | jq -r '.name')
+              AR_URL=$(echo "$AR_ZIP" | jq -r '.browser_download_url')
+              echo "AR_ZIP_NAME=$AR_NAME" >> $GITHUB_ENV
+              echo "AR_DOWNLOAD_URL=$AR_URL" >> $GITHUB_ENV
+            fi
           fi
 
       - name: Create Dynamic Download Page
