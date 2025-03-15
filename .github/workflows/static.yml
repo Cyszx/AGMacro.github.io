@@ -30,19 +30,27 @@ jobs:
       - name: Fetch Latest Release Info
         id: latest_release
         run: |
-          LATEST_RELEASE=$(curl -s https://api.github.com/repos/Cyszx/AGMacro.github.io/releases/latest)
-          ZIP_ASSET=$(echo "$LATEST_RELEASE" | jq -r '.assets[] | select(.name | endswith(".zip")) | {name: .name, url: .browser_download_url}' | jq -s '.[0]')
-
-          if [[ -z "$ZIP_ASSET" || "$ZIP_ASSET" == "null" ]]; then
-            echo "No zip file found in the latest release. Exiting."
-            exit 1
+          # Fetch Anime Guardians Release
+          AG_RELEASE=$(curl -s https://api.github.com/repos/Cyszx/AGMacro.github.io/releases/latest)
+          AG_ZIP=$(echo "$AG_RELEASE" | jq -r '.assets[] | select(.name | endswith(".zip")) | {name: .name, url: .browser_download_url}' | jq -s '.[0]')
+          
+          if [[ ! -z "$AG_ZIP" && "$AG_ZIP" != "null" ]]; then
+            AG_NAME=$(echo "$AG_ZIP" | jq -r '.name')
+            AG_URL=$(echo "$AG_ZIP" | jq -r '.url')
+            echo "AG_ZIP_NAME=$AG_NAME" >> $GITHUB_ENV
+            echo "AG_DOWNLOAD_URL=$AG_URL" >> $GITHUB_ENV
           fi
 
-          ZIP_NAME=$(echo "$ZIP_ASSET" | jq -r '.name')
-          DOWNLOAD_URL=$(echo "$ZIP_ASSET" | jq -r '.url')
-
-          echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
-          echo "DOWNLOAD_URL=$DOWNLOAD_URL" >> $GITHUB_ENV
+          # Fetch Anime Royale Release
+          AR_RELEASE=$(curl -s https://api.github.com/repos/Cyszx/Anime-Royale-Macro/releases/latest || echo "{}")
+          AR_ZIP=$(echo "$AR_RELEASE" | jq -r '.assets[] | select(.name | endswith(".zip")) | {name: .name, url: .browser_download_url}' | jq -s '.[0]')
+          
+          if [[ ! -z "$AR_ZIP" && "$AR_ZIP" != "null" ]]; then
+            AR_NAME=$(echo "$AR_ZIP" | jq -r '.name')
+            AR_URL=$(echo "$AR_ZIP" | jq -r '.url')
+            echo "AR_ZIP_NAME=$AR_NAME" >> $GITHUB_ENV
+            echo "AR_DOWNLOAD_URL=$AR_URL" >> $GITHUB_ENV
+          fi
 
       - name: Create Dynamic Download Page
         run: |
@@ -52,73 +60,272 @@ jobs:
           <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="description" content="Download Cys Macro for Anime Guardians - Enhance your gaming experience">
-            <title>Cys Macros - Download Anime Guardians Macro</title>
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+            <meta name="description" content="Download Cys Macros for various anime games - Enhance your gaming experience">
+            <title>Cys Macros - Game Enhancement Tools</title>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
             <style>
               * { margin: 0; padding: 0; box-sizing: border-box; }
+              
+              :root {
+                --primary: #4CAF50;
+                --primary-dark: #45a049;
+                --text: #ffffff;
+                --text-secondary: #cccccc;
+                --bg-dark: #0a0a2e;
+                --card-bg: rgba(255, 255, 255, 0.1);
+                --card-border: rgba(255, 255, 255, 0.1);
+              }
+
               body {
-                background: linear-gradient(135deg, #0a0a2e, #1a1a3a);
+                background: radial-gradient(circle at top right, #1a1a4a, var(--bg-dark));
                 font-family: "Poppins", sans-serif;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                color: white;
+                min-height: 100vh;
+                color: var(--text);
+                padding: 40px 20px;
+                position: relative;
+                overflow-x: hidden;
               }
+
+              body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: 
+                  radial-gradient(circle at 20% 20%, rgba(76, 175, 80, 0.1) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 80%, rgba(76, 175, 80, 0.1) 0%, transparent 40%);
+                pointer-events: none;
+                z-index: -1;
+              }
+
               .container {
+                max-width: 1200px;
+                margin: 0 auto;
                 text-align: center;
-                padding: 40px;
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 20px;
-                backdrop-filter: blur(12px);
-                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-                width: 90%;
-                max-width: 600px;
+                position: relative;
+                z-index: 1;
               }
+
+              .header {
+                margin-bottom: 60px;
+                position: relative;
+              }
+
               h1 {
-                font-size: 2.5rem;
-                background: linear-gradient(45deg, white, #4CAF50);
+                font-size: 4rem;
+                font-weight: 700;
+                background: linear-gradient(45deg, var(--text), var(--primary));
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-              }
-              .description {
-                font-size: 1rem;
-                margin: 20px 0;
-                color: #cccccc;
-              }
-              .download-button {
+                margin-bottom: 20px;
+                position: relative;
                 display: inline-block;
-                background: linear-gradient(45deg, #4CAF50, #45a049);
-                color: white;
-                padding: 18px 36px;
+              }
+
+              h1::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100px;
+                height: 4px;
+                background: linear-gradient(90deg, transparent, var(--primary), transparent);
+              }
+
+              .description {
                 font-size: 1.2rem;
-                border-radius: 12px;
+                margin: 20px auto 40px;
+                color: var(--text-secondary);
+                max-width: 600px;
+                line-height: 1.6;
+              }
+
+              .games-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 40px;
+                margin-top: 40px;
+                padding: 20px;
+              }
+
+              .game-card {
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 24px;
+                padding: 40px 30px;
+                backdrop-filter: blur(12px);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                transition: all 0.4s ease;
+                position: relative;
+                overflow: hidden;
+              }
+
+              .game-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(circle at top right, 
+                  rgba(76, 175, 80, 0.1), 
+                  transparent 70%);
+                opacity: 0;
+                transition: opacity 0.4s ease;
+              }
+
+              .game-card:hover {
+                transform: translateY(-10px);
+                border-color: rgba(76, 175, 80, 0.3);
+              }
+
+              .game-card:hover::before {
+                opacity: 1;
+              }
+
+              .game-title {
+                font-size: 2rem;
+                font-weight: 600;
+                margin-bottom: 20px;
+                color: var(--text);
+                position: relative;
+              }
+
+              .game-title::after {
+                content: '';
+                display: block;
+                width: 40px;
+                height: 3px;
+                background: var(--primary);
+                margin: 15px auto;
+                border-radius: 2px;
+                transition: width 0.3s ease;
+              }
+
+              .game-card:hover .game-title::after {
+                width: 60px;
+              }
+
+              .game-description {
+                color: var(--text-secondary);
+                margin: 20px 0;
+                font-size: 1rem;
+                line-height: 1.6;
+              }
+
+              .download-button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+                color: white;
+                padding: 16px 32px;
+                font-size: 1.1rem;
+                border-radius: 16px;
                 text-decoration: none;
-                font-weight: bold;
-                transition: 0.3s;
-                box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+                font-weight: 600;
+                transition: all 0.3s ease;
+                border: none;
+                cursor: pointer;
+                margin-top: 25px;
+                position: relative;
+                overflow: hidden;
               }
+
+              .download-button::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transform: translateX(-100%);
+                transition: transform 0.6s ease;
+              }
+
               .download-button:hover {
-                transform: translateY(-3px) scale(1.05);
-                box-shadow: 0 8px 16px rgba(76, 175, 80, 0.4);
+                transform: translateY(-3px) scale(1.02);
+                box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
               }
+
+              .download-button:hover::before {
+                transform: translateX(100%);
+              }
+
               .version-tag {
-                margin-top: 15px;
+                margin-top: 20px;
                 font-size: 0.9rem;
-                background: rgba(76, 175, 80, 0.2);
-                padding: 5px 10px;
-                border-radius: 10px;
-                border: 1px solid rgba(76, 175, 80, 0.3);
+                background: rgba(76, 175, 80, 0.1);
+                padding: 8px 16px;
+                border-radius: 12px;
+                border: 1px solid rgba(76, 175, 80, 0.2);
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+              }
+
+              .version-tag i {
+                color: var(--primary);
+              }
+
+              .not-available {
+                color: var(--text-secondary);
+                font-style: italic;
+                padding: 15px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 12px;
+                margin-top: 20px;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+              }
+
+              @media (max-width: 768px) {
+                h1 { font-size: 3rem; }
+                .description { font-size: 1.1rem; }
+                .games-grid { padding: 10px; }
+                .game-card { padding: 30px 20px; }
+              }
+
+              @media (max-width: 480px) {
+                h1 { font-size: 2.5rem; }
+                .description { font-size: 1rem; }
+                .game-title { font-size: 1.8rem; }
               }
             </style>
           </head>
           <body>
             <div class="container">
-              <h1>Cys Macro</h1>
-              <p class="description">Enhance your gaming experience with our powerful macro tool designed for Anime Guardians.</p>
-              <a href="${{ env.DOWNLOAD_URL }}" class="download-button" download>⬇ Download ${ZIP_NAME}</a>
-              <div class="version-tag">Version: ${ZIP_NAME}</div>
+              <div class="header">
+                <h1>Cys Macros</h1>
+                <p class="description">Elevate your gaming experience with our professionally crafted macro tools, designed specifically for popular anime games.</p>
+              </div>
+              
+              <div class="games-grid">
+                <!-- Anime Guardians Card -->
+                <div class="game-card">
+                  <h2 class="game-title">Anime Guardians</h2>
+                  <p class="game-description">Experience seamless automation and enhanced gameplay efficiency with our specialized Anime Guardians macro tool.</p>
+                  ${AG_ZIP_NAME:+<a href="$AG_DOWNLOAD_URL" class="download-button" download><i class="fas fa-download"></i> Download Now</a>}
+                  ${AG_ZIP_NAME:+<div class="version-tag"><i class="fas fa-code-branch"></i> Version: $AG_ZIP_NAME</div>}
+                  ${AG_ZIP_NAME:-<p class="not-available"><i class="fas fa-clock"></i> Download currently unavailable</p>}
+                </div>
+
+                <!-- Anime Royale Card -->
+                <div class="game-card">
+                  <h2 class="game-title">Anime Royale</h2>
+                  <p class="game-description">Maximize your potential in Anime Royale with our advanced macro tool, designed for optimal performance.</p>
+                  ${AR_ZIP_NAME:+<a href="$AR_DOWNLOAD_URL" class="download-button" download><i class="fas fa-download"></i> Download Now</a>}
+                  ${AR_ZIP_NAME:+<div class="version-tag"><i class="fas fa-code-branch"></i> Version: $AR_ZIP_NAME</div>}
+                  ${AR_ZIP_NAME:-<p class="not-available"><i class="fas fa-clock"></i> Coming soon!</p>}
+                </div>
+              </div>
             </div>
           </body>
           </html>
