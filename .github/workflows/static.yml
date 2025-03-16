@@ -98,7 +98,7 @@ jobs:
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="description" content="Download Cys Macros for various anime games - Enhance your gaming experience">
-            <title>Cys Macros - Game Enhancement Tools</title>
+            <title>Cys Macros</title>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
             <style>
@@ -341,14 +341,14 @@ jobs:
             <div class="container">
               <div class="header">
                 <h1>Cys Macros</h1>
-                <p class="description">Macros for roblox games.</p>
+                <p class="description"></p>
               </div>
               
               <div class="games-grid">
                 <!-- Anime Guardians Card -->
                 <div class="game-card">
                   <h2 class="game-title">Anime Guardians</h2>
-                  <p class="game-description">Experience seamless automation and enhanced gameplay efficiency with our specialized Anime Guardians macro tool.</p>
+                  <p class="game-description"></p>
                   ${AG_ZIP_NAME:+<a href="$AG_DOWNLOAD_URL" class="download-button" download><i class="fas fa-download"></i> Download Now</a>}
                   ${AG_ZIP_NAME:+<div class="version-tag"><i class="fas fa-code-branch"></i> Version: $AG_ZIP_NAME</div>}
                   ${AG_ZIP_NAME:-<p class="not-available"><i class="fas fa-clock"></i> Download currently unavailable</p>}
@@ -357,7 +357,7 @@ jobs:
                 <!-- Anime Royale Card -->
                 <div class="game-card">
                   <h2 class="game-title">Anime Royale</h2>
-                  <p class="game-description">Maximize your potential in Anime Royale with our advanced macro tool, designed for optimal performance.</p>
+                  <p class="game-description"></p>
                   ${AR_ZIP_NAME:+<a href="$AR_DOWNLOAD_URL" class="download-button" download><i class="fas fa-download"></i> Download Now</a>}
                   ${AR_ZIP_NAME:+<div class="version-tag"><i class="fas fa-code-branch"></i> Version: $AR_ZIP_NAME</div>}
                   ${AR_ZIP_NAME:-<p class="not-available"><i class="fas fa-clock"></i> Coming soon!</p>}
