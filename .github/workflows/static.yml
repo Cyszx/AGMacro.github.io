@@ -102,20 +102,8 @@ jobs:
           echo "Debug: Creating download page..."
           mkdir -p _site
           
-          # Create the conditional HTML snippets first
-          if [ "$MACRO_DOWNLOAD_URL" = "#" ]; then
-            MACRO_BUTTON='<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
-          else
-            MACRO_BUTTON="<a href=\"$MACRO_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
-          fi
-
-          if [ "$ANIME_DOWNLOAD_URL" = "#" ]; then
-            ANIME_BUTTON='<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
-          else
-            ANIME_BUTTON="<a href=\"$ANIME_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
-          fi
-
-          cat > _site/index.html << EOF
+          # Create a template file first
+          cat > template.html << 'EOF'
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -373,26 +361,39 @@ jobs:
                 <div class="game-card">
                   <h2 class="game-title">CysMacros</h2>
                   <p class="game-description">Anime Guardians Macro</p>
-                  $MACRO_BUTTON
-                  <div class="version-tag"><i class="fas fa-code-branch"></i> $MACRO_ZIP_NAME</div>
+                  ${MACRO_HTML}
+                  <div class="version-tag"><i class="fas fa-code-branch"></i> ${MACRO_ZIP_NAME}</div>
                 </div>
 
                 <!-- Anime Royale Card -->
                 <div class="game-card">
                   <h2 class="game-title">Anime Royale</h2>
                   <p class="game-description">Anime Royale Macro</p>
-                  $ANIME_BUTTON
-                  <div class="version-tag"><i class="fas fa-code-branch"></i> $ANIME_ZIP_NAME</div>
+                  ${ANIME_HTML}
+                  <div class="version-tag"><i class="fas fa-code-branch"></i> ${ANIME_ZIP_NAME}</div>
                 </div>
               </div>
             </div>
           </body>
           </html>
 EOF
-          
-          echo "Debug: Checking created files..."
-          ls -la _site/
-          cat _site/index.html | head -n 5
+
+          # Create the HTML snippets
+          if [ "$MACRO_DOWNLOAD_URL" = "#" ]; then
+            export MACRO_HTML='<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
+          else
+            export MACRO_HTML="<a href=\"$MACRO_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
+          fi
+
+          if [ "$ANIME_DOWNLOAD_URL" = "#" ]; then
+            export ANIME_HTML='<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
+          else
+            export ANIME_HTML="<a href=\"$ANIME_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
+          fi
+
+          # Use envsubst to replace variables
+          envsubst < template.html > _site/index.html
+          rm template.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
