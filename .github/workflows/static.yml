@@ -93,13 +93,16 @@ jobs:
           fi
 
       - name: Create Dynamic Download Page
+        env:
+          MACRO_DOWNLOAD_URL: ${{ env.MACRO_DOWNLOAD_URL }}
+          MACRO_ZIP_NAME: ${{ env.MACRO_ZIP_NAME }}
+          ANIME_DOWNLOAD_URL: ${{ env.ANIME_DOWNLOAD_URL }}
+          ANIME_ZIP_NAME: ${{ env.ANIME_ZIP_NAME }}
         run: |
           echo "Debug: Creating download page..."
-          # Create directory if it doesn't exist
           mkdir -p _site
           
-          # Create the index.html file in the _site directory
-          cat > _site/index.html << 'EOF'
+          cat > _site/index.html << EOF
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -357,22 +360,30 @@ jobs:
                 <div class="game-card">
                   <h2 class="game-title">CysMacros</h2>
                   <p class="game-description">Anime Guardians Macro</p>
-                  ${MACRO_DOWNLOAD_URL == "#" ? '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>' : '<a href="${MACRO_DOWNLOAD_URL}" class="download-button" download><i class="fas fa-download"></i> Download Now</a>'}
-                  <div class="version-tag"><i class="fas fa-code-branch"></i> ${MACRO_ZIP_NAME}</div>
+                  $(if [ "$MACRO_DOWNLOAD_URL" = "#" ]; then 
+                    echo '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
+                  else 
+                    echo "<a href=\"$MACRO_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
+                  fi)
+                  <div class="version-tag"><i class="fas fa-code-branch"></i> $MACRO_ZIP_NAME</div>
                 </div>
 
                 <!-- Anime Royale Card -->
                 <div class="game-card">
                   <h2 class="game-title">Anime Royale</h2>
                   <p class="game-description">Anime Royale Macro</p>
-                  ${ANIME_DOWNLOAD_URL == "#" ? '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>' : '<a href="${ANIME_DOWNLOAD_URL}" class="download-button" download><i class="fas fa-download"></i> Download Now</a>'}
-                  <div class="version-tag"><i class="fas fa-code-branch"></i> ${ANIME_ZIP_NAME}</div>
+                  $(if [ "$ANIME_DOWNLOAD_URL" = "#" ]; then 
+                    echo '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
+                  else 
+                    echo "<a href=\"$ANIME_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
+                  fi)
+                  <div class="version-tag"><i class="fas fa-code-branch"></i> $ANIME_ZIP_NAME</div>
                 </div>
               </div>
             </div>
           </body>
           </html>
-          EOF
+EOF
           
           echo "Debug: Checking created files..."
           ls -la _site/
