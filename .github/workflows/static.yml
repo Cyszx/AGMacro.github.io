@@ -34,7 +34,7 @@ jobs:
           
           # Fetch CysMacros Release
           echo "Debug: Fetching CysMacros release..."
-          MACRO_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/Cyszx/CysMacros.github.io/releases/latest)
+          MACRO_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/Cyszx/CysMacros/releases/latest)
           echo "Debug: CysMacros Release response: $MACRO_RELEASE"
           
           if [[ $(echo "$MACRO_RELEASE" | jq 'has("assets")') == "true" ]]; then
@@ -323,9 +323,8 @@ jobs:
                 <div class="game-card">
                   <h2 class="game-title">CysMacros</h2>
                   <p class="game-description">Universal macro for various anime games</p>
-                  ${MACRO_ZIP_NAME:+<a href="$MACRO_DOWNLOAD_URL" class="download-button" download><i class="fas fa-download"></i> Download Now</a>}
-                  ${MACRO_ZIP_NAME:+<div class="version-tag"><i class="fas fa-code-branch"></i> Version: $MACRO_ZIP_NAME</div>}
-                  ${MACRO_ZIP_NAME:-<p class="not-available"><i class="fas fa-clock"></i> Download currently unavailable</p>}
+                  <a href="https://github.com/Cyszx/CysMacros/releases/latest/download/CysMacros.zip" class="download-button" download><i class="fas fa-download"></i> Download Now</a>
+                  <div class="version-tag"><i class="fas fa-code-branch"></i> Latest Version</div>
                 </div>
               </div>
             </div>
