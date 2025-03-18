@@ -102,6 +102,19 @@ jobs:
           echo "Debug: Creating download page..."
           mkdir -p _site
           
+          # Create the conditional HTML snippets first
+          if [ "$MACRO_DOWNLOAD_URL" = "#" ]; then
+            MACRO_BUTTON='<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
+          else
+            MACRO_BUTTON="<a href=\"$MACRO_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
+          fi
+
+          if [ "$ANIME_DOWNLOAD_URL" = "#" ]; then
+            ANIME_BUTTON='<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
+          else
+            ANIME_BUTTON="<a href=\"$ANIME_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
+          fi
+
           cat > _site/index.html << EOF
           <!DOCTYPE html>
           <html lang="en">
@@ -360,11 +373,7 @@ jobs:
                 <div class="game-card">
                   <h2 class="game-title">CysMacros</h2>
                   <p class="game-description">Anime Guardians Macro</p>
-                  $(if [ "$MACRO_DOWNLOAD_URL" = "#" ]; then 
-                    echo '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
-                  else 
-                    echo "<a href=\"$MACRO_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
-                  fi)
+                  $MACRO_BUTTON
                   <div class="version-tag"><i class="fas fa-code-branch"></i> $MACRO_ZIP_NAME</div>
                 </div>
 
@@ -372,11 +381,7 @@ jobs:
                 <div class="game-card">
                   <h2 class="game-title">Anime Royale</h2>
                   <p class="game-description">Anime Royale Macro</p>
-                  $(if [ "$ANIME_DOWNLOAD_URL" = "#" ]; then 
-                    echo '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
-                  else 
-                    echo "<a href=\"$ANIME_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
-                  fi)
+                  $ANIME_BUTTON
                   <div class="version-tag"><i class="fas fa-code-branch"></i> $ANIME_ZIP_NAME</div>
                 </div>
               </div>
