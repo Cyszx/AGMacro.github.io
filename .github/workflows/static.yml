@@ -1,164 +1,254 @@
-name: Deploy static content to Pages
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Cys Macros</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #007bff;
+      --primary-dark: #0056b3;
+      --secondary-color: #101820;
+      --accent-color: #00c6ff;
+      --text-color: #e5e5e5;
+      --card-bg: #1a1a2e;
+      --body-bg: #0f0f1a;
+      --button-hover: #0099ff;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--body-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    }
+    
+    .description {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.8;
+    }
+    
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .game-card {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 2rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(0, 123, 255, 0.2);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .game-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      border-color: var(--primary-color);
+    }
+    
+    .game-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+    
+    .download-button {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .download-button:hover {
+      background: linear-gradient(135deg, var(--button-hover), var(--primary-color));
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+    
+    .version-tag {
+      display: inline-block;
+      background-color: rgba(0, 123, 255, 0.1);
+      padding: 0.4rem 0.8rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: var(--primary-color);
+    }
+    
+    .not-available {
+      padding: 0.8rem 1.5rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      color: #aaa;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .header h1 {
+        font-size: 2.5rem;
+      }
+    }
+    
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 3rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Cys Macros</h1>
+      <p class="description">Download the latest version of Cys Macros to enhance your gaming experience!</p>
+    </div>
+    
+    <div class="games-grid">
+      <div class="game-card">
+        <h2 class="game-title">Anime Guardians</h2>
+        <a href="#" class="download-button" id="macroButton">
+          <i class="fas fa-download"></i> Download Now
+        </a>
+        <div class="version-tag"><i class="fas fa-code-branch"></i> <span id="macroVersion">Loading...</span></div>
+      </div>
 
-on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
+      <div class="game-card">
+        <h2 class="game-title">Anime Royale</h2>
+        <a href="#" class="download-button" id="animeButton">
+          <i class="fas fa-download"></i> Download Now
+        </a>
+        <div class="version-tag"><i class="fas fa-code-branch"></i> <span id="animeVersion">Loading...</span></div>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    <p>© 2025 Cys Macros. All rights reserved.</p>
+  </footer>
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
-jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Fetch Latest Release Info
-        id: latest_release
-        run: |
-          echo "Debug: Starting release info fetch..."
-          
-          # Fetch CysMacros Release
-          echo "Debug: Fetching CysMacros release..."
-          MACRO_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/Cyszx/AGMacro.github.io/releases/latest)        
-          echo "Debug: CysMacros Release response: $MACRO_RELEASE" 
-          
-          if [[ $(echo "$MACRO_RELEASE" | jq 'has("message")') == "true" && $(echo "$MACRO_RELEASE" | jq -r '.message') == "Not Found" ]]; then
-            echo "Debug: CysMacros repository or release not found"
-            echo "MACRO_ZIP_NAME=Not Available" >> $GITHUB_ENV
-            echo "MACRO_DOWNLOAD_URL=#" >> $GITHUB_ENV
-          elif [[ $(echo "$MACRO_RELEASE" | jq 'has("assets")') == "true" ]]; then
-            echo "Debug: Found CysMacros release with assets"
-            MACRO_ZIP=$(echo "$MACRO_RELEASE" | jq -r '.assets[] | select(.name | endswith(".zip")) | {name: .name, url: .browser_download_url}' | jq -s '.[0]')
-            
-            if [[ ! -z "$MACRO_ZIP" && "$MACRO_ZIP" != "null" ]]; then
-              MACRO_NAME=$(echo "$MACRO_ZIP" | jq -r '.name')
-              MACRO_URL=$(echo "$MACRO_ZIP" | jq -r '.url')
-              echo "MACRO_ZIP_NAME=$MACRO_NAME" >> $GITHUB_ENV
-              echo "MACRO_DOWNLOAD_URL=$MACRO_URL" >> $GITHUB_ENV
-              echo "Debug: CysMacros variables set - Name: $MACRO_NAME, URL: $MACRO_URL"
-            else
-              echo "Debug: No CysMacros ZIP found"
-              echo "MACRO_ZIP_NAME=No ZIP Available" >> $GITHUB_ENV
-              echo "MACRO_DOWNLOAD_URL=#" >> $GITHUB_ENV
-            fi
-          else
-            echo "Debug: No valid CysMacros release or assets found"
-            echo "MACRO_ZIP_NAME=Not Available" >> $GITHUB_ENV
-            echo "MACRO_DOWNLOAD_URL=#" >> $GITHUB_ENV
-          fi
-
-          # Fetch Anime Royale Release
-          echo "Debug: Fetching Anime Royale release..."
-          ANIME_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/Cyszx/Anime-Royale-Macro/releases/latest)
-          echo "Debug: Anime Royale Release response: $ANIME_RELEASE"
-          
-          if [[ $(echo "$ANIME_RELEASE" | jq 'has("message")') == "true" && $(echo "$ANIME_RELEASE" | jq -r '.message') == "Not Found" ]]; then
-            echo "Debug: Anime Royale repository or release not found"
-            echo "ANIME_ZIP_NAME=Not Available" >> $GITHUB_ENV
-            echo "ANIME_DOWNLOAD_URL=#" >> $GITHUB_ENV
-          elif [[ $(echo "$ANIME_RELEASE" | jq 'has("assets")') == "true" ]]; then
-            echo "Debug: Found Anime Royale release with assets"
-            ANIME_ZIP=$(echo "$ANIME_RELEASE" | jq -r '.assets[] | select(.name | endswith(".zip")) | {name: .name, url: .browser_download_url}' | jq -s '.[0]')
-            
-            if [[ ! -z "$ANIME_ZIP" && "$ANIME_ZIP" != "null" ]]; then
-              ANIME_NAME=$(echo "$ANIME_ZIP" | jq -r '.name')
-              ANIME_URL=$(echo "$ANIME_ZIP" | jq -r '.url')
-              echo "ANIME_ZIP_NAME=$ANIME_NAME" >> $GITHUB_ENV
-              echo "ANIME_DOWNLOAD_URL=$ANIME_URL" >> $GITHUB_ENV
-              echo "Debug: Anime Royale variables set - Name: $ANIME_NAME, URL: $ANIME_URL"
-            else
-              echo "Debug: No Anime Royale ZIP found"
-              echo "ANIME_ZIP_NAME=No ZIP Available" >> $GITHUB_ENV
-              echo "ANIME_DOWNLOAD_URL=#" >> $GITHUB_ENV
-            fi
-          else
-            echo "Debug: No valid Anime Royale release or assets found"
-            echo "ANIME_ZIP_NAME=Not Available" >> $GITHUB_ENV
-            echo "ANIME_DOWNLOAD_URL=#" >> $GITHUB_ENV
-          fi
-
-      - name: Create Dynamic Download Page
-        env:
-          MACRO_DOWNLOAD_URL: ${{ env.MACRO_DOWNLOAD_URL }}
-          MACRO_ZIP_NAME: ${{ env.MACRO_ZIP_NAME }}
-          ANIME_DOWNLOAD_URL: ${{ env.ANIME_DOWNLOAD_URL }}
-          ANIME_ZIP_NAME: ${{ env.ANIME_ZIP_NAME }}
-        run: |
-          echo "Debug: Creating download page..."
-          mkdir -p _site
-          
-          # Create macro button HTML
-          if [ "$MACRO_DOWNLOAD_URL" = "#" ]; then
-            MACRO_BUTTON='<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
-          else
-            MACRO_BUTTON="<a href=\"$MACRO_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
-          fi
-
-          # Create anime button HTML
-          if [ "$ANIME_DOWNLOAD_URL" = "#" ]; then
-            ANIME_BUTTON='<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>'
-          else
-            ANIME_BUTTON="<a href=\"$ANIME_DOWNLOAD_URL\" class=\"download-button\" download><i class=\"fas fa-download\"></i> Download Now</a>"
-          fi
-
-          cat > _site/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <title>Cys Macros</title>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-            <style>/* Your existing CSS */</style>
-          </head>
-          <body>
-            <div class="container">
-              <div class="header">
-                <h1>Cys Macros</h1>
-                <p class="description">Download the latest version of Cys Macros to enhance your gaming experience!</p>
-              </div>
-              
-              <div class="games-grid">
-                <div class="game-card">
-                  <h2 class="game-title">CysMacros</h2>
-                  <p class="game-description">Anime Guardians Macro</p>
-                  '"$MACRO_BUTTON"'
-                  <div class="version-tag"><i class="fas fa-code-branch"></i> '"$MACRO_ZIP_NAME"'</div>
-                </div>
-
-                <div class="game-card">
-                  <h2 class="game-title">Anime Royale</h2>
-                  <p class="game-description">Anime Royale Macro</p>
-                  '"$ANIME_BUTTON"'
-                  <div class="version-tag"><i class="fas fa-code-branch"></i> '"$ANIME_ZIP_NAME"'</div>
-                </div>
-              </div>
-            </div>
-          </body>
-          </html>
-EOF
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '_site'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  <script>
+    // Simulating the GitHub Actions environment variables
+    // In a real implementation, you would use a backend to fetch these values
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Fetch latest release info from GitHub API
+      fetchMacroInfo();
+      fetchAnimeInfo();
+    });
+    
+    function fetchMacroInfo() {
+      fetch('https://api.github.com/repos/Cyszx/AGMacro.github.io/releases/latest')
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === "Not Found" || !data.assets || data.assets.length === 0) {
+            document.getElementById('macroVersion').textContent = "Not Available";
+            updateButtonStatus('macroButton', false);
+          } else {
+            const zipAsset = data.assets.find(asset => asset.name.endsWith('.zip'));
+            if (zipAsset) {
+              document.getElementById('macroVersion').textContent = zipAsset.name;
+              document.getElementById('macroButton').href = zipAsset.browser_download_url;
+            } else {
+              document.getElementById('macroVersion').textContent = "No ZIP Available";
+              updateButtonStatus('macroButton', false);
+            }
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching macro info:', error);
+          document.getElementById('macroVersion').textContent = "Error loading";
+          updateButtonStatus('macroButton', false);
+        });
+    }
+    
+    function fetchAnimeInfo() {
+      fetch('https://api.github.com/repos/Cyszx/Anime-Royale-Macro/releases/latest')
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === "Not Found" || !data.assets || data.assets.length === 0) {
+            document.getElementById('animeVersion').textContent = "Not Available";
+            updateButtonStatus('animeButton', false);
+          } else {
+            const zipAsset = data.assets.find(asset => asset.name.endsWith('.zip'));
+            if (zipAsset) {
+              document.getElementById('animeVersion').textContent = zipAsset.name;
+              document.getElementById('animeButton').href = zipAsset.browser_download_url;
+            } else {
+              document.getElementById('animeVersion').textContent = "No ZIP Available";
+              updateButtonStatus('animeButton', false);
+            }
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching anime info:', error);
+          document.getElementById('animeVersion').textContent = "Error loading";
+          updateButtonStatus('animeButton', false);
+        });
+    }
+    
+    function updateButtonStatus(buttonId, available) {
+      const button = document.getElementById(buttonId);
+      if (!available) {
+        const parentElement = button.parentElement;
+        const notAvailableDiv = document.createElement('div');
+        notAvailableDiv.className = 'not-available';
+        notAvailableDiv.innerHTML = '<i class="fas fa-info-circle"></i> Download currently unavailable';
+        parentElement.replaceChild(notAvailableDiv, button);
+      }
+    }
+  </script>
+</body>
+</html>
