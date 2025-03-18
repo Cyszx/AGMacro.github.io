@@ -34,10 +34,14 @@ jobs:
           
           # Fetch CysMacros Release
           echo "Debug: Fetching CysMacros release..."
-          MACRO_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/Cyszx/CysMacros/releases/latest)
-          echo "Debug: CysMacros Release response: $MACRO_RELEASE"
+          MACRO_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/Cyszx/AGMacro.github.io/releases/latest)        
+          echo "Debug: CysMacros Release response: $MACRO_RELEASE" 
           
-          if [[ $(echo "$MACRO_RELEASE" | jq 'has("assets")') == "true" ]]; then
+          if [[ $(echo "$MACRO_RELEASE" | jq 'has("message")') == "true" && $(echo "$MACRO_RELEASE" | jq -r '.message') == "Not Found" ]]; then
+            echo "Debug: CysMacros repository or release not found"
+            echo "MACRO_ZIP_NAME=Not Available" >> $GITHUB_ENV
+            echo "MACRO_DOWNLOAD_URL=#" >> $GITHUB_ENV
+          elif [[ $(echo "$MACRO_RELEASE" | jq 'has("assets")') == "true" ]]; then
             echo "Debug: Found CysMacros release with assets"
             MACRO_ZIP=$(echo "$MACRO_RELEASE" | jq -r '.assets[] | select(.name | endswith(".zip")) | {name: .name, url: .browser_download_url}' | jq -s '.[0]')
             
@@ -49,13 +53,43 @@ jobs:
               echo "Debug: CysMacros variables set - Name: $MACRO_NAME, URL: $MACRO_URL"
             else
               echo "Debug: No CysMacros ZIP found"
-              echo "MACRO_ZIP_NAME=" >> $GITHUB_ENV
-              echo "MACRO_DOWNLOAD_URL=" >> $GITHUB_ENV
+              echo "MACRO_ZIP_NAME=No ZIP Available" >> $GITHUB_ENV
+              echo "MACRO_DOWNLOAD_URL=#" >> $GITHUB_ENV
             fi
           else
             echo "Debug: No valid CysMacros release or assets found"
-            echo "MACRO_ZIP_NAME=" >> $GITHUB_ENV
-            echo "MACRO_DOWNLOAD_URL=" >> $GITHUB_ENV
+            echo "MACRO_ZIP_NAME=Not Available" >> $GITHUB_ENV
+            echo "MACRO_DOWNLOAD_URL=#" >> $GITHUB_ENV
+          fi
+
+          # Fetch Anime Royale Release
+          echo "Debug: Fetching Anime Royale release..."
+          ANIME_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/Cyszx/Anime-Royale-Macro/releases/latest)
+          echo "Debug: Anime Royale Release response: $ANIME_RELEASE"
+          
+          if [[ $(echo "$ANIME_RELEASE" | jq 'has("message")') == "true" && $(echo "$ANIME_RELEASE" | jq -r '.message') == "Not Found" ]]; then
+            echo "Debug: Anime Royale repository or release not found"
+            echo "ANIME_ZIP_NAME=Not Available" >> $GITHUB_ENV
+            echo "ANIME_DOWNLOAD_URL=#" >> $GITHUB_ENV
+          elif [[ $(echo "$ANIME_RELEASE" | jq 'has("assets")') == "true" ]]; then
+            echo "Debug: Found Anime Royale release with assets"
+            ANIME_ZIP=$(echo "$ANIME_RELEASE" | jq -r '.assets[] | select(.name | endswith(".zip")) | {name: .name, url: .browser_download_url}' | jq -s '.[0]')
+            
+            if [[ ! -z "$ANIME_ZIP" && "$ANIME_ZIP" != "null" ]]; then
+              ANIME_NAME=$(echo "$ANIME_ZIP" | jq -r '.name')
+              ANIME_URL=$(echo "$ANIME_ZIP" | jq -r '.url')
+              echo "ANIME_ZIP_NAME=$ANIME_NAME" >> $GITHUB_ENV
+              echo "ANIME_DOWNLOAD_URL=$ANIME_URL" >> $GITHUB_ENV
+              echo "Debug: Anime Royale variables set - Name: $ANIME_NAME, URL: $ANIME_URL"
+            else
+              echo "Debug: No Anime Royale ZIP found"
+              echo "ANIME_ZIP_NAME=No ZIP Available" >> $GITHUB_ENV
+              echo "ANIME_DOWNLOAD_URL=#" >> $GITHUB_ENV
+            fi
+          else
+            echo "Debug: No valid Anime Royale release or assets found"
+            echo "ANIME_ZIP_NAME=Not Available" >> $GITHUB_ENV
+            echo "ANIME_DOWNLOAD_URL=#" >> $GITHUB_ENV
           fi
 
       - name: Create Dynamic Download Page
@@ -322,17 +356,17 @@ jobs:
                 <!-- CysMacros Card -->
                 <div class="game-card">
                   <h2 class="game-title">CysMacros</h2>
-                  <p class="game-description">Universal macro for various anime games</p>
-                  <a href="https://github.com/Cyszx/CysMacros/releases/latest/download/CysMacros.zip" class="download-button" download><i class="fas fa-download"></i> Download Now</a>
-                  <div class="version-tag"><i class="fas fa-code-branch"></i> Latest Version</div>
+                  <p class="game-description">Anime Guardians Macro</p>
+                  \${MACRO_DOWNLOAD_URL == "#" ? '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>' : '<a href="\${MACRO_DOWNLOAD_URL}" class="download-button" download><i class="fas fa-download"></i> Download Now</a>'}
+                  <div class="version-tag"><i class="fas fa-code-branch"></i> \${MACRO_ZIP_NAME}</div>
                 </div>
 
                 <!-- Anime Royale Card -->
                 <div class="game-card">
                   <h2 class="game-title">Anime Royale</h2>
-                  <p class="game-description">Specialized macro for Anime Royale</p>
-                  <a href="https://github.com/Cyszx/Anime-Royale-Macro/releases" class="download-button" download><i class="fas fa-download"></i> Download Now</a>
-                  <div class="version-tag"><i class="fas fa-code-branch"></i> Latest Version</div>
+                  <p class="game-description">Anime Royale Macro</p>
+                  \${ANIME_DOWNLOAD_URL == "#" ? '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>' : '<a href="\${ANIME_DOWNLOAD_URL}" class="download-button" download><i class="fas fa-download"></i> Download Now</a>'}
+                  <div class="version-tag"><i class="fas fa-code-branch"></i> \${ANIME_ZIP_NAME}</div>
                 </div>
               </div>
             </div>
