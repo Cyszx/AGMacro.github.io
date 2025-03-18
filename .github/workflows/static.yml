@@ -326,6 +326,14 @@ jobs:
                   <a href="https://github.com/Cyszx/CysMacros/releases/latest/download/CysMacros.zip" class="download-button" download><i class="fas fa-download"></i> Download Now</a>
                   <div class="version-tag"><i class="fas fa-code-branch"></i> Latest Version</div>
                 </div>
+
+                <!-- Anime Royale Card -->
+                <div class="game-card">
+                  <h2 class="game-title">Anime Royale</h2>
+                  <p class="game-description">Specialized macro for Anime Royale</p>
+                  <a href="https://github.com/Cyszx/Anime-Royale-Macro/releases" class="download-button" download><i class="fas fa-download"></i> Download Now</a>
+                  <div class="version-tag"><i class="fas fa-code-branch"></i> Latest Version</div>
+                </div>
               </div>
             </div>
           </body>
