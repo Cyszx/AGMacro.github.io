@@ -99,7 +99,7 @@ jobs:
           mkdir -p _site
           
           # Create the index.html file in the _site directory
-          cat > _site/index.html << EOF
+          cat > _site/index.html << 'EOF'
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -357,16 +357,16 @@ jobs:
                 <div class="game-card">
                   <h2 class="game-title">CysMacros</h2>
                   <p class="game-description">Anime Guardians Macro</p>
-                  \${MACRO_DOWNLOAD_URL == "#" ? '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>' : '<a href="\${MACRO_DOWNLOAD_URL}" class="download-button" download><i class="fas fa-download"></i> Download Now</a>'}
-                  <div class="version-tag"><i class="fas fa-code-branch"></i> \${MACRO_ZIP_NAME}</div>
+                  ${MACRO_DOWNLOAD_URL == "#" ? '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>' : '<a href="${MACRO_DOWNLOAD_URL}" class="download-button" download><i class="fas fa-download"></i> Download Now</a>'}
+                  <div class="version-tag"><i class="fas fa-code-branch"></i> ${MACRO_ZIP_NAME}</div>
                 </div>
 
                 <!-- Anime Royale Card -->
                 <div class="game-card">
                   <h2 class="game-title">Anime Royale</h2>
                   <p class="game-description">Anime Royale Macro</p>
-                  \${ANIME_DOWNLOAD_URL == "#" ? '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>' : '<a href="\${ANIME_DOWNLOAD_URL}" class="download-button" download><i class="fas fa-download"></i> Download Now</a>'}
-                  <div class="version-tag"><i class="fas fa-code-branch"></i> \${ANIME_ZIP_NAME}</div>
+                  ${ANIME_DOWNLOAD_URL == "#" ? '<div class="not-available"><i class="fas fa-info-circle"></i> Download currently unavailable</div>' : '<a href="${ANIME_DOWNLOAD_URL}" class="download-button" download><i class="fas fa-download"></i> Download Now</a>'}
+                  <div class="version-tag"><i class="fas fa-code-branch"></i> ${ANIME_ZIP_NAME}</div>
                 </div>
               </div>
             </div>
