@@ -34,7 +34,7 @@ jobs:
           
           # Fetch Anime Guardians Release
           echo "Debug: Fetching AG release..."
-          AG_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/Cyszx/AGMacro.github.io/releases/latest)
+          AG_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/Cyszx/Anime-Guardians-Macro/releases/latest)
           echo "Debug: AG Release response: $AG_RELEASE"
           
           if [[ $(echo "$AG_RELEASE" | jq 'has("assets")') == "true" ]]; then
@@ -52,8 +52,11 @@ jobs:
               echo "AG_ZIP_NAME=" >> $GITHUB_ENV
               echo "AG_DOWNLOAD_URL=" >> $GITHUB_ENV
             fi
+          else
+            echo "Debug: No valid AG release or assets found"
+            echo "AG_ZIP_NAME=" >> $GITHUB_ENV
+            echo "AG_DOWNLOAD_URL=" >> $GITHUB_ENV
           fi
-
           # Fetch Anime Royale Release
           echo "Debug: Fetching AR release..."
           AR_RELEASE=$(curl -s -H "Accept: application/vnd.github+json" https://api.github.com/repos/Cyszx/Anime-Royale-Macro/releases/latest)
